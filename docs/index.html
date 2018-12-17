@@ -44,7 +44,8 @@
             <audio autoplay loop id="playAudio">
               <source src="https://github.com/khuongnm0/Random/blob/master/docs/src/music/kqxs.mp3" type="audio/ogg">
             </audio>
-            <iframe src="https://github.com/khuongnm0/Random/blob/master/docs/src/music/kqxs.mp3" allow="autoplay" style="display:none" id="iframeAudio">
+            <iframe src="https://github.com/khuongnm0/Random/blob/master/docs/src/music/kqxs.mp3" allow="autoplay"
+              style="display:none" id="iframeAudio">
             </iframe>
           </div>
         </div>
@@ -119,8 +120,8 @@
         console.log(sortable);
 
         $('#result').html(
-          `<div class="chip"> Số " ${sortable[0][0]} " - xuất hiện "${sortable[0][1]}" lần.</div>. 
-        <div class="chip"> Số " ${sortable[1][0]} " - xuất hiện "${sortable[1][1]}" lần.</div>.`
+          `<div class="chip"><span class="chip gradient-45deg-purple-deep-orange gradient-shadow white-text" style="font-size:25px">  ${sortable[0][0]} </span> - xuất hiện "${sortable[0][1]}" lần.</div> 
+        <div class="chip"><span class="chip gradient-45deg-purple-deep-orange gradient-shadow white-text" style="font-size:25px">   ${sortable[1][0]} </span>  - xuất hiện "${sortable[1][1]}" lần.</div>`
         );
         // sortable.forEach((el) => {
         //   $('#result').append(`<div class="chip"> Số " ${el[0]} " - xuất hiện "${el[1]}" lần.</div>`);
