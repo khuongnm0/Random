@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="description" content="Random">
+  <meta name="keywords" content=Random">
+  <title>Random </title>
+  <!-- Favicons-->
+  <link rel="icon" href="./src/images/akite-logo.png" sizes="32x32">
+  <!-- Favicons-->
+  <link rel="apple-touch-icon-precomposed" href="./src/images/akite-logo.png">
+  <!-- For iPhone -->
+  <meta name="msapplication-TileColor" content="#00bcd4">
+  <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+  <!-- For Windows Phone -->
+  <!-- CORE CSS-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="./src/css/materialize.css" type="text/css" rel="stylesheet">
+  <link href="./src/css/style.css" type="text/css" rel="stylesheet">
+  <!-- Custome CSS-->
+  <link href="./src/css/page-center.css" type="text/css" rel="stylesheet">
+  <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+</head>
+
+<body style="background-color:#e3f2fd">
+  <div id="login-page" class="row">
+    <div class="col s12 z-depth-4 card-panel">
+
+      <form class="login-form">
+
+        <div class="row">
+          <div class="input-field col s12 center">
+            <img src="./src/images/akite-logo.png" alt="" class="responsive-img valign">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 center">
+
+            <audio autoplay loop id="playAudio">
+              <source src="./src/music/kqxs.mp3" type="audio/ogg">
+            </audio>
+            <iframe src="./src/music/kqxs.mp3" allow="autoplay" style="display:none" id="iframeAudio">
+            </iframe>
+          </div>
+        </div>
+
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="material-icons prefix pt-5">cached</i>
+            <input id="times" type="number" min="1" max="9999999" value="1000">
+            <label for="times" class="center-align">Số Lần Random ( 2 - 9999999 )</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <a id="randomBtn" href="#!" class="btn waves-effect waves-light  gradient-45deg-indigo-blue gradient-shadow col s12">Random</a>
+          </div>
+        </div>
+
+        <div class="row center" id="result">
+
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- ================================================
+    Scripts
+    ================================================ -->
+  <!-- jQuery Library -->
+  <script type="text/javascript" src="./src/js/jquery-3.2.1.min.js"></script>
+  <!--materialize js-->
+  <script type="text/javascript" src="./src/js/materialize.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+      if (!isChrome) {
+        $('#iframeAudio').remove()
+      } else {
+        $('#playAudio').remove() //just to make sure that it will not have 2x audio in the background 
+      }
+
+      $('#randomBtn').on('click', () => {
+        let times = parseInt($('#times').val());
+        if (times < 2) {
+          times = 2;
+        } else if (times > 9999999) {
+          times = 9999999;
+        }
+        $('#times').val(times)
+
+        let arr = [];
+        let result = {};
+        let sortable = [];
+
+        for (let index = 0; index < times; index++) {
+          let number = Math.floor(Math.random() * 100);
+          arr.push(number);
+        }
+        arr.sort();
+        for (var i = 0; i < arr.length; ++i) {
+          if (!result[arr[i]])
+            result[arr[i]] = 0;
+          ++result[arr[i]];
+        }
+
+        for (var _value in result) {
+          sortable.push([_value, result[_value]]);
+        }
+
+        sortable.sort(function (a, b) {
+          return b[1] - a[1];
+        });
+        console.log(sortable);
+
+        $('#result').html(
+          `<div class="chip"> Số " ${sortable[0][0]} " - xuất hiện "${sortable[0][1]}" lần.</div>. 
+        <div class="chip"> Số " ${sortable[1][0]} " - xuất hiện "${sortable[1][1]}" lần.</div>.`
+        );
+        // sortable.forEach((el) => {
+        //   $('#result').append(`<div class="chip"> Số " ${el[0]} " - xuất hiện "${el[1]}" lần.</div>`);
+        // });
+      })
+    });
+  </script>
+
+</body>
+
+</html>
